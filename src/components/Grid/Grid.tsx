@@ -11,7 +11,6 @@ import { INeoGridData } from "./Gridinterfaces";
 import { format } from "date-fns";
 
 
-
 var designationFiterParams: ITextFilterParams = {
   filterOptions: [
     "contains",
@@ -26,9 +25,16 @@ var designationFiterParams: ITextFilterParams = {
   maxNumConditions: 1,
 };
 
-
 function dateFormatter(params: ValueFormatterParams) {
-  return format(new Date(params.value),'dd MMMM, yyyy - hh:mm a')
+  return format(new Date(params.value), "dd MMMM, yyyy - hh:mm a");
+}
+
+function potentiallyHazardousFormatter(params: ValueFormatterParams) {
+  return params.value === "Y"
+    ? "Yes"
+    : params.value === "N"
+    ? "No"
+    : params.value;
 }
 
 const columnDefs: ColDef[] = [
@@ -44,8 +50,8 @@ const columnDefs: ColDef[] = [
     field: "discovery_date",
     headerName: "Discovery Date",
     minWidth: 250,
-    filter:false,
-    valueFormatter:dateFormatter
+    filter: false,
+    valueFormatter: dateFormatter,
   },
   {
     field: "h_mag",
@@ -69,6 +75,7 @@ const columnDefs: ColDef[] = [
     field: "pha",
     headerName: "Potentially Hazardous",
     filter: "agTextColumnFilter",
+    valueFormatter: potentiallyHazardousFormatter,
   },
   {
     field: "orbit_class",
@@ -79,14 +86,13 @@ const columnDefs: ColDef[] = [
 ];
 
 const NeoGrid = (): JSX.Element => {
-
-
   return (
     <div className="ag-theme-alpine" style={{ height: 900, width: 1920 }}>
       <AgGridReact<INeoGridData>
         rowData={data}
         columnDefs={columnDefs}
         rowGroupPanelShow={"always"}
+      
       />
     </div>
   );
