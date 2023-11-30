@@ -1,3 +1,4 @@
+
 export interface INeoGridData {
     designation?: string | undefined;
     discovery_date?: string  | undefined;
@@ -10,3 +11,4 @@ export interface INeoGridData {
     pha?: string |  undefined;
     orbit_class?: string |undefined;
   }
+
