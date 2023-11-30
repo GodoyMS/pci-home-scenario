@@ -9,6 +9,7 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import { INeoGridData } from "./Gridinterfaces";
 import { format } from "date-fns";
+import 'ag-grid-enterprise';
 
 
 var designationFiterParams: ITextFilterParams = {
@@ -92,7 +93,8 @@ const NeoGrid = (): JSX.Element => {
         rowData={data}
         columnDefs={columnDefs}
         rowGroupPanelShow={"always"}
-      
+        enableRangeSelection={true}
+        copyHeadersToClipboard={true}
       />
     </div>
   );
