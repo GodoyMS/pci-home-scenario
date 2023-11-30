@@ -2,11 +2,13 @@ import { AgGridReact } from "ag-grid-react";
 import {
   ColDef,
   ITextFilterParams,
+  ValueFormatterParams,
 } from "ag-grid-community";
 import data from "../../near-earth-asteroids.json";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import { INeoGridData } from "./Gridinterfaces";
+import { format } from "date-fns";
 
 
 
@@ -25,6 +27,9 @@ var designationFiterParams: ITextFilterParams = {
 };
 
 
+function dateFormatter(params: ValueFormatterParams) {
+  return format(new Date(params.value),'dd MMMM, yyyy - hh:mm a')
+}
 
 const columnDefs: ColDef[] = [
   {
@@ -38,8 +43,9 @@ const columnDefs: ColDef[] = [
   {
     field: "discovery_date",
     headerName: "Discovery Date",
-    minWidth: 190,
-    filter: false,
+    minWidth: 250,
+    filter:false,
+    valueFormatter:dateFormatter
   },
   {
     field: "h_mag",
